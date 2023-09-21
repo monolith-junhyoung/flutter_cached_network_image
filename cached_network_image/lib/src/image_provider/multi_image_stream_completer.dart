@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'image_stream_load_exception.dart';
+
 /// Slows down animations by this factor to help in development.
 double get timeDilation => _timeDilation;
 double _timeDilation = 1.0;
@@ -31,7 +33,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
     }, onError: (dynamic error, StackTrace stack) {
       reportError(
         context: ErrorDescription('resolving an image codec'),
-        exception: error,
+        exception: ImageStreamLoadException(error),
         stack: stack,
         informationCollector: informationCollector,
         silent: true,
@@ -43,7 +45,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
         onError: (dynamic error, StackTrace stack) {
           reportError(
             context: ErrorDescription('loading an image'),
-            exception: error,
+            exception: ImageStreamLoadException(error),
             stack: stack,
             informationCollector: informationCollector,
             silent: true,
@@ -128,7 +130,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
     } catch (exception, stack) {
       reportError(
         context: ErrorDescription('resolving an image frame'),
-        exception: exception,
+        exception: ImageStreamLoadException(exception),
         stack: stack,
         informationCollector: _informationCollector,
         silent: true,
