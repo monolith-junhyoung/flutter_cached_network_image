@@ -5,6 +5,9 @@
 
 A flutter library to show images from the internet and keep them in the cache directory.
 
+## Purpose
+The purpose of this forked repository is to control exceptions thrown from this library while loading images so that app can handle the exception which may be sent to firebase crashlytics.
+
 
 
 ## Sponsors 
