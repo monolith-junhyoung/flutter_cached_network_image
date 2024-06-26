@@ -18,12 +18,14 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
   /// [chunkEvents] should indicate the [ImageChunkEvent]s of the first image
   /// to show.
   MultiImageStreamCompleter({
+    required String url,
     required Stream<ui.Codec> codec,
     required double scale,
     Stream<ImageChunkEvent>? chunkEvents,
     InformationCollector? informationCollector,
   })  : _informationCollector = informationCollector,
-        _scale = scale {
+        _scale = scale,
+        _url = url {
     codec.listen(
       (event) {
         if (_timer != null) {
@@ -35,7 +37,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
       onError: (Object error, StackTrace stack) {
         reportError(
           context: ErrorDescription('resolving an image codec'),
-          exception: ImageStreamLoadException(error),
+          exception: ImageStreamLoadException(url: _url, exception: error),
           stack: stack,
           informationCollector: informationCollector,
           silent: true,
@@ -48,7 +50,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
         onError: (Object error, StackTrace stack) {
           reportError(
             context: ErrorDescription('loading an image'),
-            exception: ImageStreamLoadException(error),
+            exception: ImageStreamLoadException(url: _url, exception: error),
             stack: stack,
             informationCollector: informationCollector,
             silent: true,
@@ -58,6 +60,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
     }
   }
 
+  final String _url;
   ui.Codec? _codec;
   ui.Codec? _nextImageCodec;
   final double _scale;
@@ -136,7 +139,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
     } on Object catch (exception, stack) {
       reportError(
         context: ErrorDescription('resolving an image frame'),
-        exception: ImageStreamLoadException(exception),
+        exception: ImageStreamLoadException(url: _url, exception: exception),
         stack: stack,
         informationCollector: _informationCollector,
         silent: true,
