@@ -35,7 +35,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
       onError: (Object error, StackTrace stack) {
         reportError(
           context: ErrorDescription('resolving an image codec'),
-          exception: ImageStreamLoadException(error),
+          exception: ImageStreamLoadException(exception: error),
           stack: stack,
           informationCollector: informationCollector,
           silent: true,
@@ -48,7 +48,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
         onError: (Object error, StackTrace stack) {
           reportError(
             context: ErrorDescription('loading an image'),
-            exception: ImageStreamLoadException(error),
+            exception: ImageStreamLoadException(exception: error),
             stack: stack,
             informationCollector: informationCollector,
             silent: true,
@@ -136,7 +136,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
     } on Object catch (exception, stack) {
       reportError(
         context: ErrorDescription('resolving an image frame'),
-        exception: ImageStreamLoadException(exception),
+        exception: ImageStreamLoadException(exception: exception),
         stack: stack,
         informationCollector: _informationCollector,
         silent: true,

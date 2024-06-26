@@ -82,6 +82,7 @@ class CachedNetworkImageProvider
         yield DiagnosticsProperty<ImageProvider>(
           'Image provider: $this \n Image key: $key',
           this,
+          description: 'image url: ${key.url}, cacheKey: ${key.cacheKey}, headers:${key.headers.toString()}',
           style: DiagnosticsTreeStyle.errorProperty,
         );
       },
@@ -137,6 +138,7 @@ class CachedNetworkImageProvider
           'Image provider: $this \n Image key: $key',
           this,
           style: DiagnosticsTreeStyle.errorProperty,
+          description: 'image url: ${key.url}, cacheKey: ${key.cacheKey}, headers:${key.headers.toString()}',
         );
       },
     );
